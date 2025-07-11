@@ -40,4 +40,4 @@ Thumbs.db
 # Optional: lockfiles if you don’t want to commit them
 # package-lock.json
 # yarn.lock
-# pnpm-lock.yaml
+# pnpm-lock.yaml.env
