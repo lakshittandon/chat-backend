@@ -1,4 +1,5 @@
 import { generateToken } from "../lib/utils.js";
+import { uploadImage } from "../lib/cloudinary.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -93,9 +94,11 @@ export const updateProfile = async (req, res) => {
       return res.status(400).json({ message: "Profile pic is required" });
     }
 
+    const profilePicUrl = await uploadImage(profilePic, "chat-app/profiles");
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { profilePic: uploadResponse.secure_url },
+      { profilePic: profilePicUrl },
       { new: true }
     );
 

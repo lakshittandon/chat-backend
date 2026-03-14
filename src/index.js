@@ -44,8 +44,16 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
-// connect DB then start both HTTP & WebSocket server
-connectDB();
-server.listen(PORT, () => {
-  console.log(`API + WebSocket running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    server.listen(PORT, () => {
+      console.log(`API + WebSocket running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
